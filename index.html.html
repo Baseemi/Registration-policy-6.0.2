@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>NADRA Registration Policy – RP-6.0.2</title>
+
+<!-- PWA Meta -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b3b5c">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NADRA Policy">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Inter','Segoe UI',Roboto,Arial,sans-serif;
+    background:#eef3f8; color:#1a2b3e; line-height:1.65;
+    padding-top: env(safe-area-inset-top);
+  }
+  .urdu, [lang="ur"] {
+    font-family:'Amiri',serif;
+    direction:rtl; text-align:right; line-height:2.2;
+  }
+  .guidebook {
+    max-width:1400px; margin:20px auto; background:#fff; border-radius:12px;
+    box-shadow:0 10px 40px rgba(0,0,0,.09); overflow:hidden; border:1px solid #d4e0ec;
+  }
+
+  /* CREDIT BAR */
+  .credit-bar {
+    background:linear-gradient(90deg,#0a2540 0%,#123a5c 40%,#0a2540 100%);
+    padding:14px 28px; border-bottom:1px solid #1c4a72;
+    display:flex; justify-content:center; align-items:center;
+    position:relative; overflow:hidden;
+  }
+  .credit-bar::before {
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(circle at 50% 50%, rgba(212,175,55,.12), transparent 70%);
+    pointer-events:none;
+  }
+  .credit-inner {
+    display:flex; align-items:center; gap:14px;
+    position:relative; z-index:1;
+  }
+  .credit-name {
+    font-family:'Playfair Display',serif; font-weight:900; font-size:22px;
+    letter-spacing:1.2px;
+    background:linear-gradient(90deg,#f9e79f 0%,#d4af37 40%,#f9e79f 70%,#b8860b 100%);
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent; color:#d4af37;
+    text-shadow:0 0 14px rgba(212,175,55,.25);
+  }
+  .credit-erp {
+    font-family:'Playfair Display',serif; font-weight:700; font-size:11px;
+    letter-spacing:3px; color:#d4af37;
+    border:1.5px solid rgba(212,175,55,.55);
+    padding:3px 10px; border-radius:20px;
+    background:rgba(212,175,55,.06);
+  }
+
+  /* HEADER */
+  .header {
+    background:linear-gradient(135deg,#0b3b5c,#1c5a7a); color:#fff;
+    padding:18px 28px; display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:14px;
+  }
+  .header h1 { font-size:20px; font-weight:700; }
+  .header .meta { font-size:12px; opacity:.88; text-align:right; }
+  .header .meta span { display:block; }
+
+  .lang-toggle {
+    display:flex; gap:6px; background:rgba(255,255,255,.15); padding:4px; border-radius:8px;
+    margin-top:8px;
+  }
+  .lang-toggle button {
+    border:0; background:transparent; color:#fff; padding:6px 14px; font-size:12.5px;
+    font-weight:600; border-radius:6px; cursor:pointer; transition:.15s;
+    font-family:inherit;
+  }
+  .lang-toggle button.active { background:#fff; color:#0b3b5c; }
+
+  /* LAYOUT */
+  .layout { display:grid; grid-template-columns:340px 1fr; min-height:80vh; }
+
+  /* SIDEBAR */
+  .sidebar { background:#f5f9fd; border-right:1px solid #d8e5f0; padding:16px 0; }
+  .search-box { padding:0 16px 12px; }
+  .search-box input {
+    width:100%; padding:10px 12px 10px 38px; font-size:13.5px; border:2px solid #d0dde8;
+    border-radius:8px; outline:none; background:#fff
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='%237a9bb5' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E")
+      no-repeat 13px center; background-size:15px; font-family:inherit;
+  }
+  .search-box input:focus { border-color:#1a5276; }
+  .search-info { font-size:11px; color:#7a9bb5; padding:0 16px 8px; min-height:14px; }
+
+  .toc { max-height:calc(80vh - 130px); overflow-y:auto; }
+  .toc-section {
+    font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.7px;
+    color:#5d7b93; padding:12px 18px 5px; background:#eaf2fa;
+    border-top:1px solid #d8e5f0; border-bottom:1px solid #d8e5f0;
+  }
+  .toc a {
+    display:flex; align-items:center; gap:6px; padding:6px 18px; font-size:13px;
+    color:#1f3a4e; text-decoration:none; border-left:3px solid transparent;
+    cursor:pointer; transition:.15s;
+  }
+  .toc a:hover { background:#e4effa; color:#0b3b5c; }
+  .toc a.active { background:#fff; border-left-color:#1a5276; font-weight:600; color:#0b3b5c; }
+  .toc a .pg { margin-left:auto; font-size:11px; color:#8aa9c2; font-weight:600; }
+  .toc a.sub { padding-left:32px; font-size:12.5px; }
+  .toc a.hidden { display:none; }
+  .toc-section.hidden { display:none; }
+  .no-results { display:none; padding:22px 18px; text-align:center; color:#8aa9c2; font-size:13px; font-style:italic; }
+  .no-results.show { display:block; }
+
+  /* CONTENT */
+  .content { padding:30px 38px 48px; overflow-y:auto; max-height:80vh; }
+  .crumb { font-size:11.5px; color:#7a9bb5; margin-bottom:6px; }
+
+  .lang-pair { display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-top:8px; }
+  .lang-pair.single { grid-template-columns:1fr; }
+
+  .lang-col {
+    background:#fbfdff; border:1px solid #e3eef9; border-radius:10px;
+    padding:20px 22px; overflow:hidden;
+  }
+  .lang-col.en { border-top:4px solid #1a5276; }
+  .lang-col.ur { border-top:4px solid #0f7b3a; background:#fafefb; }
+
+  .lang-tag {
+    display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.7px;
+    text-transform:uppercase; padding:2px 10px; border-radius:20px; margin-bottom:12px;
+  }
+  .lang-col.en .lang-tag { background:#e3eef9; color:#1a5276; }
+  .lang-col.ur .lang-tag { background:#e2f5ea; color:#0f7b3a; font-family:'Inter',sans-serif; }
+
+  .content h2 {
+    font-size:20px; color:#0b3b5c; font-weight:700; margin-bottom:4px;
+    padding-bottom:8px; border-bottom:2px solid #e3eef9;
+  }
+  .content h2 .ur-title {
+    display:block; font-family:'Amiri',serif; font-size:22px;
+    color:#0f7b3a; font-weight:700; margin-top:8px; direction:rtl; text-align:right;
+    line-height:1.9;
+  }
+
+  .lang-col h3 { font-size:15px; color:#1a5276; font-weight:600; margin:16px 0 8px; }
+  .lang-col.ur h3 {
+    color:#0f7b3a; font-family:'Amiri',serif; font-size:19px; line-height:1.9; font-weight:700;
+  }
+  .lang-col p, .lang-col li { font-size:13.5px; margin-bottom:9px; color:#2c3e50; }
+  .lang-col.ur p, .lang-col.ur li {
+    font-size:17px; line-height:2.2; color:#1a3c2b; font-family:'Amiri',serif;
+  }
+  .lang-col ul, .lang-col ol { margin:6px 0 12px 22px; }
+  .lang-col.ur ul, .lang-col.ur ol { margin:6px 22px 12px 0; }
+
+  .lang-col table { width:100%; border-collapse:collapse; margin:10px 0 14px; font-size:12.5px; }
+  .lang-col th { background:#e3eef9; color:#0b3b5c; text-align:left; padding:7px 9px; border:1px solid #cfe0ee; font-weight:600; }
+  .lang-col.ur th { text-align:right; background:#e2f5ea; color:#0f7b3a; font-family:'Amiri',serif; font-size:15px; }
+  .lang-col td { padding:6px 9px; border:1px solid #dbe6f0; vertical-align:top; }
+  .lang-col.ur td { font-family:'Amiri',serif; font-size:16px; line-height:1.9; }
+
+  .lang-col .callout {
+    background:#e7f3fe; border-left:4px solid #1a5276; border-radius:0 6px 6px 0;
+    padding:10px 14px; margin:12px 0; font-size:13px;
+  }
+  .lang-col .callout.warn { background:#fef4e6; border-left-color:#b85e00; color:#7a3e00; }
+  .lang-col .callout.ok   { background:#e8f7ee; border-left-color:#0f7b3a; color:#0a5e2c; }
+  .lang-col.ur .callout {
+    border-left:0; border-right:4px solid #0f7b3a; border-radius:6px 0 0 6px;
+    background:#f0faf4; font-family:'Amiri',serif; font-size:16px; line-height:2;
+  }
+
+  /* INSTALL BUTTON */
+  #installBtn {
+    display:none; position:fixed; bottom:20px; right:20px; z-index:9999;
+    background:linear-gradient(135deg,#0b3b5c,#1c5a7a); color:#fff;
+    border:0; padding:14px 22px; border-radius:50px; font-size:14px; font-weight:600;
+    box-shadow:0 8px 24px rgba(11,59,92,.4); cursor:pointer; font-family:inherit;
+  }
+  #installBtn:active { transform:scale(.96); }
+
+  /* MOBILE */
+  @media(max-width:1000px){
+    .guidebook { margin:0; border-radius:0; }
+    .layout { grid-template-columns:1fr; }
+    .sidebar { border-right:none; border-bottom:1px solid #d8e5f0; }
+    .toc { max-height:260px; }
+    .content { max-height:none; padding:22px 18px 40px; }
+    .lang-pair { grid-template-columns:1fr; }
+    .header h1 { font-size:17px; }
+    .credit-name { font-size:18px; }
+    .credit-bar { padding:12px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- INSTALL BUTTON -->
+<button id="installBtn">📱 Install App</button>
+
+<div class="guidebook">
+
+  <!-- CREDIT BAR -->
+  <div class="credit-bar">
+    <div class="credit-inner">
+      <span class="credit-name">Baseem_79779</span>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>NADRA Registration Policy – RP-6.0.2 &nbsp;|&nbsp; <span class="urdu" style="font-size:18px;">رجسٹریشن پالیسی</span></h1>
+    <div class="meta">
+      <span>Issue: 18 Sep 2026 &nbsp;|&nbsp; Effective: 21 Sep 2026</span>
+      <div class="lang-toggle" id="langToggle">
+        <button data-mode="both" class="active">Both</button>
+        <button data-mode="en">English</button>
+        <button data-mode="ur">اردو</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search / تلاش کریں…" autocomplete="off">
+      </div>
+      <div class="search-info" id="searchInfo"></div>
+
+      <nav class="toc" id="toc">
+        <div class="toc-section">Front Matter</div>
+        <a data-id="introduction">Introduction <span class="pg">5</span></a>
+        <a data-id="scope">Scope <span class="pg">5</span></a>
+        <a data-id="special">Special Cases &amp; Exceptions <span class="pg">5</span></a>
+        <a data-id="compliance">Compliance &amp; Enforcement <span class="pg">5</span></a>
+        <a data-id="acronym">Acronyms <span class="pg">5</span></a>
+        <a data-id="definitions">Definitions <span class="pg">6</span></a>
+
+        <div class="toc-section">Attestation</div>
+        <a data-id="attestation">Attestation / Verification <span class="pg">7</span></a>
+
+        <div class="toc-section">Fresh / New Registration</div>
+        <a data-id="fresh">Fresh / New Registration <span class="pg">8</span></a>
+        <a class="sub" data-id="minor">Minor (Under 18) <span class="pg">9</span></a>
+        <a class="sub" data-id="adult">18 or Above <span class="pg">10</span></a>
+        <a class="sub" data-id="fresh-notes">Remarks / Notes <span class="pg">11</span></a>
+
+        <div class="toc-section">Change / Correction</div>
+        <a data-id="change">Change / Correction <span class="pg">12</span></a>
+        <a class="sub" data-id="name">Name <span class="pg">13</span></a>
+        <a class="sub" data-id="parent">Parent's Info <span class="pg">13</span></a>
+        <a class="sub" data-id="dob">Date of Birth <span class="pg">14</span></a>
+        <a class="sub" data-id="address">Address <span class="pg">14</span></a>
+        <a class="sub" data-id="marital">Marital Status <span class="pg">15</span></a>
+        <a class="sub" data-id="religion">Religion <span class="pg">15</span></a>
+        <a class="sub" data-id="gender">Gender <span class="pg">15</span></a>
+        <a class="sub" data-id="relative">Add Relative <span class="pg">16</span></a>
+        <a class="sub" data-id="various">Place of Birth / Other Fields <span class="pg">16</span></a>
+
+        <div class="toc-section">Conversion / Reprint / Renewal</div>
+        <a data-id="conversion">Conversion <span class="pg">17</span></a>
+        <a data-id="reprint">Re-Print <span class="pg">17</span></a>
+        <a data-id="renewal">Renewal <span class="pg">17</span></a>
+        <a data-id="office-mistake">Office Mistake <span class="pg">19</span></a>
+        <a data-id="frc">Family Registration Certificate <span class="pg">19</span></a>
+        <a data-id="receiving">Receiving of ID Document <span class="pg">19</span></a>
+
+        <div class="toc-section">Pakistan Origin Card (POC)</div>
+        <a data-id="poc-bg">Background <span class="pg">22</span></a>
+        <a data-id="poc-benefits">Benefits of POC <span class="pg">22</span></a>
+        <a data-id="poc-fresh">Fresh / New POC <span class="pg">23</span></a>
+        <a data-id="poc-listb">Restricted / List B Countries <span class="pg">25</span></a>
+        <a data-id="poc-misc">Mistake / Reprint / Renewal / Change <span class="pg">26</span></a>
+        <a data-id="poc-receiving">Receiving of POC <span class="pg">27</span></a>
+
+        <div class="toc-section">Cancellation</div>
+        <a data-id="cancel-death">Due to Death <span class="pg">30</span></a>
+        <a data-id="cancel-surrender">Surrender of Nationality <span class="pg">30</span></a>
+
+        <div class="toc-section">Annexures</div>
+        <a data-id="affidavits">Affidavit Formats <span class="pg">31</span></a>
+        <a data-id="dual-national">Dual National Countries <span class="pg">44</span></a>
+      </nav>
+
+      <div class="no-results" id="noResults">🔍 No matching section found.</div>
+    </aside>
+
+    <main class="content" id="contentArea"></main>
+  </div>
+</div>
+
+<script>
+const policyData = {
+  introduction: {
+    title: "Introduction", title_ur: "تعارف", page: 5,
+    en: `
+      <p>The National Database and Registration Authority (NADRA) is dedicated to maintain a secure, reliable and user-friendly registration system for the citizens of Pakistan. For this purpose, registration policy has been framed and it is updated from time to time.</p>
+      <p>In this document, <strong>Birth Certificate has been made the primary or breeder document</strong> for fresh / new registration in NADRA and in future any change in identity document will only be made on the basis of prior correction in Birth Certificate (if birth record exists in CRMS / NADRA record).</p>
+      <p>The policy document has been outlined by considering the various sections of <strong>Pakistan Citizenship Act 1951</strong> and <strong>NADRA Ordinance 2000</strong> and its relevant rules and regulations.</p>
+    `,
+    ur: `
+      <p>نیشنل ڈیٹا بیس اینڈ رجسٹریشن اتھارٹی (نادرا) پاکستان کے شہریوں کے لیے ایک محفوظ، قابلِ اعتماد اور صارف دوست رجسٹریشن نظام برقرار رکھنے کے لیے پُرعزم ہے۔ اسی مقصد کے لیے رجسٹریشن پالیسی مرتب کی گئی ہے جو وقتاً فوقتاً اپ ڈیٹ کی جاتی ہے۔</p>
+      <p>اس دستاویز میں <strong>پیدائش کے سرٹیفکیٹ کو نئی رجسٹریشن کے لیے بنیادی دستاویز</strong> قرار دیا گیا ہے، اور مستقبل میں شناختی دستاویز میں کوئی بھی تبدیلی پیدائش کے سرٹیفکیٹ میں پہلے تصحیح کی بنیاد پر کی جائے گی (بشرطیکہ پیدائش کا ریکارڈ CRMS / نادرا میں موجود ہو)۔</p>
+      <p>یہ پالیسی دستاویز <strong>پاکستان سٹیزن شپ ایکٹ 1951</strong> اور <strong>نادرا آرڈیننس 2000</strong> کی مختلف شقوں اور متعلقہ قواعد و ضوابط کو مدنظر رکھتے ہوئے ترتیب دی گئی ہے۔</p>
+    `
+  },
+
+  scope: {
+    title: "Scope", title_ur: "دائرہ کار", page: 5,
+    en: `
+      <p>This policy applies to all processes related to the new registration, renewal, change and attestation of identity documents for citizens of Pakistan, whether applying from inland or abroad.</p>
+      <ul>
+        <li>NADRA Registration Center (Inland / Abroad)</li>
+        <li>Mobile Units</li>
+        <li>Pak ID (DAU and Mobile App)</li>
+      </ul>
+      <p><strong>One document for all platforms.</strong> It encompasses all segments of society, including provisions for handling exceptional cases.</p>
+    `,
+    ur: `
+      <p>یہ پالیسی پاکستان کے شہریوں کے لیے نئی رجسٹریشن، تجدید، تبدیلی اور شناختی دستاویزات کی تصدیق سے متعلق تمام مراحل پر لاگو ہوتی ہے، خواہ درخواست ملک میں دی جائے یا بیرونِ ملک۔</p>
+      <ul>
+        <li>نادرا رجسٹریشن سنٹر (ملکی / غیر ملکی)</li>
+        <li>موبائل یونٹس</li>
+        <li>پاک آئی ڈی (DAU اور موبائل ایپ)</li>
+      </ul>
+      <p><strong>تمام پلیٹ فارمز کے لیے ایک ہی دستاویز۔</strong> یہ معاشرے کے تمام طبقات کو محیط ہے، بشمول خصوصی کیسز کے انتظام کی شقیں۔</p>
+    `
+  },
+
+  special: {
+    title: "Special Cases and Exceptions", title_ur: "خصوصی کیسز اور استثنادات", page: 5,
+    en: `
+      <p>This policy also includes guidelines for processing applications for:</p>
+      <ul><li>Orphans</li><li>Transgender persons</li><li>Organ donors</li><li>Other exceptions</li></ul>
+      <div class="callout">Exceptional cases will be referred to <strong>Regional DG / Director</strong> through DAU and Zonal Board recommendations for approval.</div>
+    `,
+    ur: `
+      <p>اس پالیسی میں درج ذیل درخواستوں کے عمل کی رہنمائی بھی شامل ہے:</p>
+      <ul><li>یتیم</li><li>خواجہ سرا افراد</li><li>اعضاء عطیہ کرنے والے</li><li>دیگر استثنائی کیسز</li></ul>
+      <div class="callout">خصوصی کیسز <strong>علاقائی ڈی جی / ڈائریکٹر</strong> کو DAU اور زونل بورڈ کی سفارشات کے ذریعے منظوری کے لیے بھیجے جائیں گے۔</div>
+    `
+  },
+
+  compliance: {
+    title: "Compliance and Enforcement", title_ur: "تعمیل اور نفاذ", page: 5,
+    en: `<ul><li>Regular training of staff on policy and its compliance is mandatory.</li><li>Strict enforcement of policy by all and with penalties for non-compliance be ensured.</li><li>Periodic reviews and updates to the policy will be carried out.</li></ul>`,
+    ur: `<ul><li>عملے کی پالیسی اور اس کی تعمیل پر باقاعدہ تربیت لازمی ہے۔</li><li>سب کی جانب سے پالیسی کا سختی سے نفاذ اور عدم تعمیل پر جرمانے یقینی بنائے جائیں۔</li><li>پالیسی کا وقتاً فوقتاً جائزہ اور اپ ڈیٹ کیا جائے گا۔</li></ul>`
+  },
+
+  acronym: {
+    title: "Acronyms", title_ur: "مخففات", page: 5,
+    en: `
+      <table>
+        <tr><th>Acronym</th><th>Full Form</th></tr>
+        <tr><td>CNIC</td><td>Computerized National Identity Card</td></tr>
+        <tr><td>NICOP</td><td>National Identity Card for Overseas Pakistani</td></tr>
+        <tr><td>CRC</td><td>Child Registration Certificate</td></tr>
+        <tr><td>POC</td><td>Pakistan Origin Card</td></tr>
+        <tr><td>FRC</td><td>Family Registration Certificate</td></tr>
+        <tr><td>CBRC</td><td>Computerized Birth Registration Certificate</td></tr>
+        <tr><td>DAU</td><td>Data Acquisition Unit</td></tr>
+        <tr><td>RHO</td><td>Regional Head Office</td></tr>
+        <tr><td>MOI</td><td>Ministry of Interior</td></tr>
+        <tr><td>SOP</td><td>Standard Operating Procedure</td></tr>
+      </table>
+    `,
+    ur: `
+      <table>
+        <tr><th>مخفف</th><th>مکمل نام</th></tr>
+        <tr><td>CNIC</td><td>کمپیوٹرائزڈ نیشنل آئی ڈینٹیٹی کارڈ</td></tr>
+        <tr><td>NICOP</td><td>بیرونِ ملک پاکستانیوں کے لیے قومی شناختی کارڈ</td></tr>
+        <tr><td>CRC</td><td>چائلڈ رجسٹریشن سرٹیفکیٹ</td></tr>
+        <tr><td>POC</td><td>پاکستان اوریجن کارڈ</td></tr>
+        <tr><td>FRC</td><td>فیملی رجسٹریشن سرٹیفکیٹ</td></tr>
+        <tr><td>CBRC</td><td>کمپیوٹرائزڈ برتھ رجسٹریشن سرٹیفکیٹ</td></tr>
+        <tr><td>DAU</td><td>ڈیٹا ایکیوزیشن یونٹ</td></tr>
+        <tr><td>RHO</td><td>علاقائی ہیڈ آفس</td></tr>
+        <tr><td>MOI</td><td>وزارتِ داخلہ</td></tr>
+        <tr><td>SOP</td><td>معیاری طریقہ کار</td></tr>
+      </table>
+    `
+  },
+
+  definitions: {
+    title: "Definitions", title_ur: "تعریفات", page: 6,
+    en: `
+      <table>
+        <tr><th>Term</th><th>Definition</th></tr>
+        <tr><td>Applicant</td><td>An individual applying for NADRA's registration services.</td></tr>
+        <tr><td>Biometrics</td><td>Personal data such as facial images or fingerprints that uniquely identify a person.</td></tr>
+        <tr><td>Breeder Document</td><td>Primary document to establish identity (Birth Certificate or Passport).</td></tr>
+        <tr><td>Minor</td><td>A citizen under 18 years of age.</td></tr>
+        <tr><td>System Independent</td><td>An individual having no blood relative (Father / Mother / Brother / Sister).</td></tr>
+      </table>
+    `,
+    ur: `
+      <table>
+        <tr><th>اصطلاح</th><th>تعریف</th></tr>
+        <tr><td>درخواست دہندہ</td><td>وہ فرد جو نادرا کی رجسٹریشن خدمات کے لیے درخواست دے۔</td></tr>
+        <tr><td>بائیو میٹرکس</td><td>ذاتی ڈیٹا جیسے چہرے کی تصویر یا فنگر پرنٹس جو فرد کی منفرد شناخت کریں۔</td></tr>
+        <tr><td>بنیادی دستاویز</td><td>شناخت قائم کرنے کے لیے بنیادی دستاویز (پیدائش سرٹیفکیٹ یا پاسپورٹ)۔</td></tr>
+        <tr><td>نابالغ</td><td>18 سال سے کم عمر کا شہری۔</td></tr>
+        <tr><td>سسٹم انڈیپنڈنٹ</td><td>وہ فرد جس کا کوئی خونی رشتہ دار (والد / والدہ / بھائی / بہن) نہ ہو۔</td></tr>
+      </table>
+    `
+  },
+
+  attestation: {
+    title: "Attestation / Verification of CNICF", title_ur: "CNICF کی تصدیق", page: 7,
+    en: `
+      <h3>Who Can Verify (Biometric – Regulation 9(i))</h3>
+      <ol><li>Blood relatives: Father, Mother, Brother, Sister</li><li>Applications from abroad: Any CNIC / NICOP holder</li></ol>
+      <h3>Who Can Attest (Conventional – Regulation 9(a–h))</h3>
+      <ul>
+        <li>Member of Senate / National / Provincial Assembly / Local Body</li>
+        <li>Officers of Federal / Provincial Govt in BPS 16 &amp; above</li>
+        <li>Commissioned officers of Armed Forces</li>
+        <li>Officers of NADRA in BPS / NPS scale 16 and above</li>
+        <li>Headmen (Lambardar) for persons of their village</li>
+        <li>Political Agent (PA) or Assistant Political Agent (APA)</li>
+      </ul>
+      <div class="callout">Attesters may verify only if they know the applicant personally.</div>
+    `,
+    ur: `
+      <h3>کون تصدیق کر سکتا ہے (بائیو میٹرک – ضابطہ 9(i))</h3>
+      <ol><li>خونی رشتہ دار: والد، والدہ، بھائی، بہن</li><li>بیرونِ ملک درخواستیں: کوئی بھی CNIC / NICOP ہولڈر</li></ol>
+      <h3>کون تصدیق کر سکتا ہے (روایتی طریقہ – ضابطہ 9(a–h))</h3>
+      <ul>
+        <li>سینیٹ / قومی یا صوبائی اسمبلی / لوکل باڈی کے ممبر</li>
+        <li>وفاقی / صوبائی حکومت کے افسران گریڈ 16 اور اس سے اوپر</li>
+        <li>مسلح افواج کے کمیشنڈ افسران</li>
+        <li>نادرا کے افسران گریڈ 16 اور اس سے اوپر</li>
+        <li>لمبردار اپنے گاؤں کے افراد کے لیے</li>
+        <li>پولیٹیکل ایجنٹ (PA) یا اسسٹنٹ پولیٹیکل ایجنٹ (APA)</li>
+      </ul>
+      <div class="callout">تصدیق کرنے والا صرف اُس صورت میں تصدیق کر سکتا ہے جب وہ درخواست دہندہ کو ذاتی طور پر جانتا ہو۔</div>
+    `
+  },
+
+  fresh: {
+    title: "Fresh / New Registration", title_ur: "نئی رجسٹریشن", page: 8,
+    en: `
+      <p>New / Fresh registration is carried out under <strong>Section 9 of NADRA Ordinance 2000</strong>. It covers:</p>
+      <ul><li>Minors (under 18) — CRC or Juvenile Card</li><li>Citizens 18 years and above — CNIC or SMART CNIC</li><li>Overseas Pakistanis — NICOP or SMART NICOP</li></ul>
+    `,
+    ur: `
+      <p>نئی رجسٹریشن <strong>نادرا آرڈیننس 2000 کی دفعہ 9</strong> کے تحت کی جاتی ہے۔ اس میں شامل ہیں:</p>
+      <ul><li>نابالغ (18 سال سے کم) — CRC یا جووینائل کارڈ</li><li>18 سال یا اس سے زائد عمر کے شہری — CNIC یا سمارٹ CNIC</li><li>بیرونِ ملک پاکستانی — NICOP یا سمارٹ NICOP</li></ul>
+    `
+  },
+
+  minor: {
+    title: "Minor's (Under 18) Registration", title_ur: "نابالغ (18 سال سے کم) کی رجسٹریشن", page: 9,
+    en: `
+      <p>Registration of under-18 citizens is carried out under Section 9 of NADRA Ordinance 2000. Every parent or guardian is bound to register the minor within <strong>one month of birth</strong>.</p>
+      <h3>CRC Requirements</h3>
+      <ol><li>Application by any one parent / guardian with ID number</li><li>Computerized Birth Certificate (verified) OR Foreign Birth Certificate OR S1 Form OR Citizenship certificate</li></ol>
+      <h3>Juvenile Card Requirements</h3>
+      <ol><li>Application by / on behalf of minor (via Mobile App)</li><li>ID number of parent(s) / guardian(s)</li><li>Computerized Birth Certificate OR Foreign Birth Certificate OR S1 Form</li><li>Biometric verification by one parent / guardian</li></ol>
+    `,
+    ur: `
+      <p>18 سال سے کم عمر کے شہریوں کی رجسٹریشن نادرا آرڈیننس 2000 کی دفعہ 9 کے تحت کی جاتی ہے۔ ہر والد یا سرپرست نابالغ کو <strong>پیدائش کے ایک ماہ کے اندر</strong> رجسٹر کروانے کا پابند ہے۔</p>
+      <h3>CRC کے تقاضے</h3>
+      <ol><li>والدین میں سے کسی ایک یا سرپرست کی طرف سے شناختی نمبر کے ساتھ درخواست</li><li>کمپیوٹرائزڈ پیدائش سرٹیفکیٹ (تصدیق شدہ) یا غیر ملکی پیدائش سرٹیفکیٹ یا S1 فارم یا شہریت سرٹیفکیٹ</li></ol>
+      <h3>جووینائل کارڈ کے تقاضے</h3>
+      <ol><li>نابالغ کی طرف سے / اس کے وکیل کی طرف سے درخواست (موبائل ایپ کے ذریعے)</li><li>والدین / سرپرست کا شناختی نمبر</li><li>کمپیوٹرائزڈ پیدائش سرٹیفکیٹ یا غیر ملکی پیدائش سرٹیفکیٹ یا S1 فارم</li><li>والدین میں سے کسی ایک یا سرپرست کی بائیو میٹرک تصدیق</li></ol>
+    `
+  },
+
+  adult: {
+    title: "18 or Above Registration", title_ur: "18 سال یا اس سے زائد کی رجسٹریشن", page: 10,
+    en: `
+      <p>Registration of citizens 18 years or above is carried out under Section 9 of NADRA Ordinance 2000. Every citizen must register within <strong>3 months after attaining age 18</strong>.</p>
+      <h3>CNIC – Resident Citizen (with blood relative)</h3>
+      <ol><li>Application by applicant</li><li>ID number of parent(s) / blood relative(s)</li><li>Computerized Birth Certificate (verified)</li><li>Biometric verification of parent(s) / sibling(s) above 18 OR attestation per Regulation 9(a–h)</li></ol>
+      <h3>SI Case (no blood relative)</h3>
+      <ol><li>Application by applicant</li><li>Computerized Birth Certificate (verified)</li><li>Biometric witness by two ID holders above 18 with Affidavit "B"</li><li>Attestation per Regulation 9(a–h)</li></ol>
+    `,
+    ur: `
+      <p>18 سال یا اس سے زائد عمر کے شہریوں کی رجسٹریشن نادرا آرڈیننس 2000 کی دفعہ 9 کے تحت کی جاتی ہے۔ ہر شہری 18 سال کی عمر مکمل ہونے کے <strong>تین ماہ کے اندر</strong> رجسٹر کروانے کا پابند ہے۔</p>
+      <h3>CNIC – مقیم شہری (خونی رشتہ دار کے ساتھ)</h3>
+      <ol><li>درخواست دہندہ کی طرف سے درخواست</li><li>والدین / خونی رشتہ دار کا شناختی نمبر</li><li>کمپیوٹرائزڈ پیدائش سرٹیفکیٹ (تصدیق شدہ)</li><li>والدین / 18 سال سے زائد بہن بھائی کی بائیو میٹرک تصدیق یا ضابطہ 9(a–h) کے مطابق تصدیق</li></ol>
+      <h3>SI کیس (کوئی خونی رشتہ دار نہیں)</h3>
+      <ol><li>درخواست دہندہ کی طرف سے درخواست</li><li>کمپیوٹرائزڈ پیدائش سرٹیفکیٹ (تصدیق شدہ)</li><li>دو شناختی کارڈ ہولڈرز (18+) کی بائیو میٹرک گواہی مع حلف نامہ "B"</li><li>ضابطہ 9(a–h) کے مطابق تصدیق</li></ol>
+    `
+  },
+
+  "fresh-notes": {
+    title: "Fresh Registration Remarks / Notes", title_ur: "نئی رجسٹریشن کے نوٹس", page: 11,
+    en: `
+      <ol>
+        <li>Applicant can apply from anywhere in Pakistan / abroad.</li>
+        <li>All applicants processed through Digitally Marking (UV) checklist.</li>
+        <li>OIC shall interview each applicant / parent and verifier.</li>
+        <li>If one parent is registered and card is not digitally impounded, children shall be registered without hindrance.</li>
+        <li>Unknown parentage → parents' names randomly selected by system (orphans / transgender only).</li>
+        <li>Original document must be seen and scanned.</li>
+        <li>Religion of minors → as per father's religion (or mother's if father unregistered).</li>
+      </ol>
+    `,
+    ur: `
+      <ol>
+        <li>درخواست دہندہ پاکستان میں کہیں سے بھی یا بیرونِ ملک سے درخواست دے سکتا ہے۔</li>
+        <li>تمام درخواستیں ڈیجیٹلی مارکنگ (UV) چیک لسٹ کے ذریعے پروسیس کی جائیں گی۔</li>
+        <li>OIC ہر درخواست دہندہ / والدین اور تصدیق کرنے والے کا انٹرویو کرے گا۔</li>
+        <li>اگر والدین میں سے کوئی ایک رجسٹرڈ ہو اور کارڈ ڈیجیٹلی امپاؤنڈڈ نہ ہو تو بچوں کی رجسٹریشن بغیر رکاوٹ کی جائے گی۔</li>
+        <li>نامعلوم والدین کی صورت میں سسٹم والدین کے نام بے ترتیب منتخب کرے گا (صرف یتیم / خواجہ سرا)۔</li>
+        <li>اصل دستاویز دیکھی اور اسکین کی جائے گی۔</li>
+        <li>نابالغ کا مذہب والد کے مذہب کے مطابق درج ہوگا (والد غیر رجسٹرڈ ہونے پر والدہ کے مطابق)۔</li>
+      </ol>
+    `
+  },
+
+  change: {
+    title: "Change / Correction of Identity Document", title_ur: "شناختی دستاویز میں تبدیلی / تصحیح", page: 12,
+    en: `
+      <p>Change / correction in identity documents is carried out under Rule 13(1) of NIC Rules 2002.</p>
+      <div class="callout">Birth Certificate is the breeder document — if it exists in NADRA / CRMS, any change must first be made in the Birth Certificate.</div>
+    `,
+    ur: `
+      <p>شناختی دستاویزات میں تبدیلی / تصحیح NIC رولز 2002 کے رول 13(1) کے تحت کی جاتی ہے۔</p>
+      <div class="callout">پیدائش سرٹیفکیٹ بنیادی دستاویز ہے — اگر یہ نادرا / CRMS میں موجود ہو تو کوئی بھی تبدیلی پہلے پیدائش سرٹیفکیٹ میں کی جائے گی۔</div>
+    `
+  },
+
+  name: {
+    title: "Name Change / Correction", title_ur: "نام میں تبدیلی / تصحیح", page: 13,
+    en: `
+      <p><strong>Definition:</strong> Change means name is being changed from "A" to "B". Example: "Nusrat Jehan" → "Adeela Kousar".</p>
+      <h3>Resident Citizens</h3>
+      <ol><li>Application by / on behalf of applicant</li><li>Computerized Birth Certificate OR Declaration on stamp paper (format C1 / C2) OR Certificate from Dar-Ul-Afta</li></ol>
+      <h3>Non-Resident Citizens</h3>
+      <ol><li>Application by / on behalf of applicant</li><li>S1 Form OR Name Change Deed OR Undertaking</li><li>Pakistani / Foreign passport OR Residence permit OR Undertaking "A"</li></ol>
+      <div class="callout">Applicant cannot revert to previous name nor change name a 2nd time (except female applicant).</div>
+    `,
+    ur: `
+      <p><strong>تعریف:</strong> تبدیلی کا مطلب ہے نام "A" سے "B" کرنا۔ مثال: "نصرت جہاں" سے "عدیلہ کوثر"۔</p>
+      <h3>مقیم شہری</h3>
+      <ol><li>درخواست دہندہ یا اس کے وکیل کی طرف سے درخواست</li><li>کمپیوٹرائزڈ پیدائش سرٹیفکیٹ یا اسٹامپ پیپر پر اعلان (فارمیٹ C1 / C2) یا دارالافتاء کا سرٹیفکیٹ</li></ol>
+      <h3>غیر مقیم شہری</h3>
+      <ol><li>درخواست دہندہ یا اس کے وکیل کی طرف سے درخواست</li><li>S1 فارم یا نام تبدیلی deed یا حلف نامہ</li><li>پاکستانی / غیر ملکی پاسپورٹ یا رہائشی اجازت نامہ یا حلف نامہ "A"</li></ol>
+      <div class="callout">درخواست دہندہ اپنے سابقہ نام پر واپس نہیں جا سکتا اور نہ دوسری بار نام تبدیل کر سکتا ہے (سوائے خواتین درخواست دہندگان)۔</div>
+    `
+  },
+
+  parent: {
+    title: "Parent's Info Correction", title_ur: "والدین کی معلومات کی تصحیح", page: 13,
+    en: `
+      <h3>Parents Alive</h3>
+      <ol><li>Application by applicant</li><li>Parent(s) ID number</li><li>Presence of parent being corrected as biometric witness</li><li>Presence of one sibling with same parent's info as biometric witness</li></ol>
+      <h3>Parents Not Alive</h3>
+      <ol><li>Presence of other parent with same spouse info AND one sibling as witness OR two siblings</li></ol>
+      <div class="callout">Parent's info can be corrected <strong>only once</strong>.</div>
+    `,
+    ur: `
+      <h3>والدین بقیدِ حیات</h3>
+      <ol><li>درخواست دہندہ کی طرف سے درخواست</li><li>والدین کا شناختی نمبر</li><li>جس والد / والدہ کی تصحیح ہو رہی ہو ان کی بائیو میٹرک گواہی کے طور پر موجودگی</li><li>ایک بہن / بھائی کی بائیو میٹرک گواہی کے طور پر موجودگی جس کی والدین کی معلومات یکساں ہوں</li></ol>
+      <h3>والدین مرحوم</h3>
+      <ol><li>دوسرے والد / والدہ کی موجودگی (یکساں شریکِ حیات کی معلومات) اور ایک بہن / بھائی کی گواہی یا دو بہن / بھائی</li></ol>
+      <div class="callout">والدین کی معلومات <strong>صرف ایک بار</strong> درست کی جا سکتی ہیں۔</div>
+    `
+  },
+
+  dob: {
+    title: "Date of Birth Change", title_ur: "تاریخِ پیدائش میں تبدیلی", page: 14,
+    en: `
+      <h3>Up to 5 Years</h3>
+      <ol><li>Application by applicant</li><li>Computerized Birth Certificate (verified) OR Matric Certificate OR Valid Passport OR Govt service record</li></ol>
+      <h3>More than 5 Years</h3>
+      <ol><li>Any documentary evidence from "up to 5 years" list</li><li>DG Ops / HOD IOOD or Regional DG approval</li></ol>
+      <div class="callout warn">Unrealistic age change (10+ years) requires DG approval with justification.</div>
+    `,
+    ur: `
+      <h3>5 سال تک</h3>
+      <ol><li>درخواست دہندہ کی طرف سے درخواست</li><li>کمپیوٹرائزڈ پیدائش سرٹیفکیٹ (تصدیق شدہ) یا میٹرک سرٹیفکیٹ یا درست پاسپورٹ یا سرکاری سروس ریکارڈ</li></ol>
+      <h3>5 سال سے زائد</h3>
+      <ol><li>"5 سال تک" کی فہرست سے کوئی دستاویزی ثبوت</li><li>ڈی جی آپریشنز / HOD IOOD یا علاقائی ڈی جی کی منظوری</li></ol>
+      <div class="callout warn">غیر حقیقی عمر کی تبدیلی (10 سال یا زیادہ) کے لیے ڈی جی کی منظوری بمع جواز درکار ہے۔</div>
+    `
+  },
+
+  address: {
+    title: "Present & Permanent Address Change", title_ur: "موجودہ و مستقل پتے میں تبدیلی", page: 14,
+    en: `
+      <h3>Temporary Address</h3>
+      <ol><li>Application by / on behalf of applicant</li><li>Blood relative's / spouse's ID with same address OR computerized utility bill OR residential property document OR Affidavit / Rent Deed</li></ol>
+      <h3>Permanent Address</h3>
+      <ol><li>Blood relative's / spouse's ID with same address OR utility bill OR property document OR Society / Govt Allotment letter (3+ years old)</li></ol>
+      <div class="callout">No document required for change of foreign addresses.</div>
+    `,
+    ur: `
+      <h3>عارضی پتہ</h3>
+      <ol><li>درخواست دہندہ یا اس کے وکیل کی طرف سے درخواست</li><li>خونی رشتہ دار / شریکِ حیات کا شناختی کارڈ اسی پتے کے ساتھ یا کمپیوٹرائزڈ یوٹیلیٹی بل یا رہائشی جائیداد کی دستاویز یا حلف نامہ / کرایہ نامہ</li></ol>
+      <h3>مستقل پتہ</h3>
+      <ol><li>خونی رشتہ دار / شریکِ حیات کا شناختی کارڈ اسی پتے کے ساتھ یا یوٹیلیٹی بل یا جائیداد کی دستاویز یا سوسائٹی / سرکاری الاٹمنٹ لیٹر (3 سال پرانا)</li></ol>
+      <div class="callout">غیر ملکی پتوں کی تبدیلی کے لیے کوئی دستاویز درکار نہیں۔</div>
+    `
+  },
+
+  marital: {
+    title: "Marital Status Change", title_ur: "ازدواجی حیثیت میں تبدیلی", page: 15,
+    en: `
+      <h3>Marriage</h3>
+      <ol><li>Marriage Certificate from UC / Municipal Committee / Cantonment OR Foreign Marriage Certificate</li><li>Spouse ID (if available)</li></ol>
+      <h3>Divorce</h3>
+      <ol><li>Divorce Certificate from UC / Cantonment OR Foreign Divorce Certificate</li></ol>
+      <h3>Widow / Widower</h3>
+      <ol><li>Death Certificate from UC / Cantonment OR Foreign Death Certificate</li><li>Marriage Certificate (if changing from unmarried)</li></ol>
+    `,
+    ur: `
+      <h3>شادی</h3>
+      <ol><li>یونین کونسل / میونسپل کمیٹی / کینٹونمنٹ سے شادی سرٹیفکیٹ یا غیر ملکی شادی سرٹیفکیٹ</li><li>شریکِ حیات کا شناختی کارڈ (اگر دستیاب ہو)</li></ol>
+      <h3>طلاق</h3>
+      <ol><li>یونین کونسل / کینٹونمنٹ سے طلاق سرٹیفکیٹ یا غیر ملکی طلاق سرٹیفکیٹ</li></ol>
+      <h3>بیوہ / بیوہ مرد</h3>
+      <ol><li>یونین کونسل / کینٹونمنٹ سے وفات سرٹیفکیٹ یا غیر ملکی وفات سرٹیفکیٹ</li><li>شادی سرٹیفکیٹ (اگر غیر شادی شدہ سے تبدیل ہو رہا ہو)</li></ol>
+    `
+  },
+
+  religion: {
+    title: "Religion Change", title_ur: "مذہب میں تبدیلی", page: 15,
+    en: `
+      <ol><li>Application by / on behalf of applicant</li><li>Declaration / Undertaking in Pak ID (DAU)</li></ol>
+      <div class="callout warn">After declaration of being Muslim on CNICF or Pak ID after 13 Dec 2018 (SOP 4.1.0), change from Islam to any other religion shall <strong>not</strong> be allowed.</div>
+    `,
+    ur: `
+      <ol><li>درخواست دہندہ یا اس کے وکیل کی طرف سے درخواست</li><li>پاک آئی ڈی (DAU) میں اعلان / حلف نامہ</li></ol>
+      <div class="callout warn">13 دسمبر 2018 (SOP 4.1.0) کے بعد CNICF یا پاک آئی ڈی پر مسلمان ہونے کے اعلان کے بعد اسلام سے کسی دوسرے مذہب میں تبدیلی کی <strong>اجازت نہیں</strong>۔</div>
+    `
+  },
+
+  gender: {
+    title: "Gender Change", title_ur: "جنس میں تبدیلی", page: 15,
+    en: `
+      <ol><li>Application by / on behalf of applicant</li><li>As per Computerized Birth Certificate OR Appearance / desire (Transgender only)</li></ol>
+      <div class="callout warn"><ul style="margin:0"><li>Transgender → Male or Female: <strong>not</strong> allowed.</li><li>Male ↔ Female: only with documentary evidence and verified medical certificate from Govt hospital.</li></ul></div>
+    `,
+    ur: `
+      <ol><li>درخواست دہندہ یا اس کے وکیل کی طرف سے درخواست</li><li>کمپیوٹرائزڈ پیدائش سرٹیفکیٹ کے مطابق یا ظاہری شکل / خواہش (صرف خواجہ سرا)</li></ol>
+      <div class="callout warn"><ul style="margin:0"><li>خواجہ سرا سے مرد یا عورت: <strong>اجازت نہیں</strong>۔</li><li>مرد ↔ عورت: صرف دستاویزی ثبوت اور سرکاری ہسپتال سے تصدیق شدہ میڈیکل سرٹیفکیٹ کے ساتھ۔</li></ul></div>
+    `
+  },
+
+  relative: {
+    title: "Add Relative", title_ur: "رشتہ دار شامل کرنا", page: 16,
+    en: `<ol><li>Application by applicant</li><li>CNIC / NICOP / POC number of blood relative</li><li>Verify relative through interview / record</li></ol>`,
+    ur: `<ol><li>درخواست دہندہ کی طرف سے درخواست</li><li>خونی رشتہ دار کا CNIC / NICOP / POC نمبر</li><li>انٹرویو / ریکارڈ کے ذریعے رشتہ دار کی تصدیق</li></ol>`
+  },
+
+  various: {
+    title: "Place of Birth / Other Fields", title_ur: "جائے پیدائش / دیگر خانے", page: 16,
+    en: `
+      <h3>No document required for:</h3>
+      <ul><li>Identification mark, blood group, mother tongue</li><li>Qualification, profession, phone number</li><li>Country of stay, purpose of stay</li><li>Biometric &amp; signature</li></ul>
+      <h3>Place of Birth</h3>
+      <p>Birth Certificate or other relevant documentary evidence required. If Birth Certificate exists in NADRA/CRMS, change only after correction in Birth Certificate (from same UC).</p>
+    `,
+    ur: `
+      <h3>ان خانوں کے لیے کوئی دستاویز درکار نہیں:</h3>
+      <ul><li>شناختی نشان، بلڈ گروپ، مادری زبان</li><li>تعلیم، پیشہ، فون نمبر</li><li>رہائش کا ملک، رہائش کا مقصد</li><li>بائیو میٹرک اور دستخط</li></ul>
+      <h3>جائے پیدائش</h3>
+      <p>پیدائش سرٹیفکیٹ یا دیگر متعلقہ دستاویزی ثبوت درکار ہے۔ اگر پیدائش سرٹیفکیٹ نادرا / CRMS میں موجود ہو تو تبدیلی صرف اُسی یونین کونسل سے جاری کردہ سرٹیفکیٹ کی تصحیح کے بعد کی جائے گی۔</p>
+    `
+  },
+
+  conversion: {
+    title: "Conversion of Identity Document", title_ur: "شناختی دستاویز کی تبدیلی (کنورژن)", page: 17,
+    en: `
+      <h3>Teslin → SMART Card (or SCNIC ↔ SNICOP)</h3>
+      <ol><li>Application by applicant with CNIC / NICOP number</li><li>Pakistani / Foreign passport OR Residence permit OR Undertaking "A" (non-residents)</li></ol>
+      <h3>CRC → Juvenile Card / CNIC / SNIC / SNICOP</h3>
+      <ol><li>Application by / on behalf of CRC / Juvenile card holder</li><li>CRC / Juvenile card number</li><li>Biometric verification by parent(s) / sibling(s) OR attestation per Regulation 9(a–h)</li></ol>
+    `,
+    ur: `
+      <h3>Teslin → سمارٹ کارڈ (یا SCNIC ↔ SNICOP)</h3>
+      <ol><li>درخواست دہندہ کی طرف سے درخواست مع CNIC / NICOP نمبر</li><li>پاکستانی / غیر ملکی پاسپورٹ یا رہائشی اجازت نامہ یا حلف نامہ "A" (غیر مقیم)</li></ol>
+      <h3>CRC → جووینائل کارڈ / CNIC / SNIC / SNICOP</h3>
+      <ol><li>CRC / جووینائل کارڈ ہولڈر یا اس کے وکیل کی طرف سے درخواست</li><li>CRC / جووینائل کارڈ نمبر</li><li>والدین / بہن بھائی کی بائیو میٹرک تصدیق یا ضابطہ 9(a–h) کے مطابق تصدیق</li></ol>
+    `
+  },
+
+  reprint: {
+    title: "Re-Print of Identity Document", title_ur: "شناختی دستاویز کا دوبارہ پرنٹ", page: 17,
+    en: `
+      <p>Re-print is carried out under Rule 13(2) of NIC Rules 2002.</p>
+      <h3>Resident</h3>
+      <ol><li>Application by applicant</li><li>CNIC / NICOP / CRC / Juvenile card number</li><li>No other document required, no attestation</li></ol>
+      <h3>Non-Resident</h3>
+      <ol><li>Application by applicant</li><li>NICOP number AND Pakistani / Foreign passport OR Undertaking "A"</li></ol>
+      <div class="callout">No data change allowed. Biometrics captured and updated.</div>
+    `,
+    ur: `
+      <p>دوبارہ پرنٹ NIC رولز 2002 کے رول 13(2) کے تحت کیا جاتا ہے۔</p>
+      <h3>مقیم</h3>
+      <ol><li>درخواست دہندہ کی طرف سے درخواست</li><li>CNIC / NICOP / CRC / جووینائل کارڈ نمبر</li><li>کوئی اور دستاویز یا تصدیق درکار نہیں</li></ol>
+      <h3>غیر مقیم</h3>
+      <ol><li>درخواست دہندہ کی طرف سے درخواست</li><li>NICOP نمبر اور پاکستانی / غیر ملکی پاسپورٹ یا حلف نامہ "A"</li></ol>
+      <div class="callout">کوئی ڈیٹا تبدیلی کی اجازت نہیں۔ بائیو میٹرکس لیے اور اپ ڈیٹ کیے جائیں گے۔</div>
+    `
+  },
+
+  renewal: {
+    title: "Renewal of Identity Document", title_ur: "شناختی دستاویز کی تجدید", page: 17,
+    en: `
+      <p>Renewal is carried out under Rule 12 of NIC Rules 2002. CRC renewed under Rule 18(4) at age 3 and 10 years.</p>
+      <p>Citizens must apply for renewal <strong>no later than one month after expiry</strong>.</p>
+      <div class="callout">Requirements are identical to Re-Print.</div>
+    `,
+    ur: `
+      <p>تجدید NIC رولز 2002 کے رول 12 کے تحت کی جاتی ہے۔ CRC رول 18(4) کے تحت 3 اور 10 سال کی عمر میں تجدید کی جاتی ہے۔</p>
+      <p>شہریوں کو <strong>میعاد ختم ہونے کے ایک ماہ کے اندر</strong> تجدید کی درخواست دینی چاہیے۔</p>
+      <div class="callout">تقاضے دوبارہ پرنٹ کے مطابق ہیں۔</div>
+    `
+  },
+
+  "office-mistake": {
+    title: "Office Mistake", title_ur: "دفتری غلطی", page: 19,
+    en: `
+      <ol><li>Initiation of case by OIC in Office Mistake</li><li>No document and attestation required</li><li>Applicant presence not required except for biometrics / signature</li></ol>
+      <div class="callout">Office Mistake can be processed from any DAU in executive category — <strong>free of cost</strong>.</div>
+    `,
+    ur: `
+      <ol><li>OIC کی طرف سے دفتری غلطی کے زمرے میں کیس کا آغاز</li><li>کوئی دستاویز یا تصدیق درکار نہیں</li><li>درخواست دہندہ کی موجودگی ضروری نہیں سوائے بائیو میٹرک / دستخط کے</li></ol>
+      <div class="callout">دفتری غلطی کسی بھی DAU سے ایگزیکٹو کیٹیگری میں <strong>مفت</strong> پروسیس کی جا سکتی ہے۔</div>
+    `
+  },
+
+  frc: {
+    title: "Family Registration Certificate (FRC)", title_ur: "فیملی رجسٹریشن سرٹیفکیٹ (FRC)", page: 19,
+    en: `
+      <ol><li>Application by any Blood relative / Spouse / Guardian</li><li>Presence of minor mandatory for photo capturing (if CRC issued without photo)</li></ol>
+      <div class="callout">If a family member is digitally impounded under PO, FRC can still be issued including that member.</div>
+    `,
+    ur: `
+      <ol><li>کسی بھی خونی رشتہ دار / شریکِ حیات / سرپرست کی طرف سے درخواست</li><li>تصویر لینے کے لیے نابالغ کی موجودگی لازمی (اگر CRC بغیر تصویر جاری ہوا ہو)</li></ol>
+      <div class="callout">اگر کوئی خاندانی رکن PO کے تحت ڈیجیٹلی امپاؤنڈڈ ہو تو بھی FRC اُس رکن کو شامل کر کے جاری کیا جا سکتا ہے۔</div>
+    `
+  },
+
+  receiving: {
+    title: "Receiving of Identity Document", title_ur: "شناختی دستاویز وصول کرنا", page: 19,
+    en: `
+      <p>The identity document can be received by:</p>
+      <ol><li>Applicant (with / without token slip)</li><li>Blood relative / Spouse with Physical (Original)</li><li>Blood relative / Spouse with Copy + authority letter / Delivery Pin</li><li>Non-blood relative with Original/Copy + authority letter / Delivery Pin</li><li>Home delivery</li></ol>
+    `,
+    ur: `
+      <p>شناختی دستاویز وصول کی جا سکتی ہے:</p>
+      <ol><li>درخواست دہندہ (ٹوکن سلپ کے ساتھ یا بغیر)</li><li>خونی رشتہ دار / شریکِ حیات اصل دستاویز کے ساتھ</li><li>خونی رشتہ دار / شریکِ حیات کاپی + اجازت نامہ / ڈیلیوری پن کے ساتھ</li><li>غیر خونی رشتہ دار اصل یا کاپی + اجازت نامہ / ڈیلیوری پن کے ساتھ</li><li>گھر پر ڈیلیوری</li></ol>
+    `
+  },
+
+  "poc-bg": {
+    title: "Pakistan Origin Card (POC) – Background", title_ur: "پاکستان اوریجن کارڈ – پس منظر", page: 22,
+    en: `
+      <p>POC is issued under <strong>Section 11 of NADRA Ordinance 2000</strong> and Rules 3, 4, 5, 9 and 10 of POC Rules 2002.</p>
+      <p>The scheme was launched by the Government of Pakistan as a result of repeated requests of Overseas Pakistanis Conventions (1997 &amp; 1999). It was formally launched in <strong>2002</strong>.</p>
+      <ul><li>Renewal as per Rule 15</li><li>Duplicate &amp; changes as per Rule 16</li></ul>
+    `,
+    ur: `
+      <p>POC <strong>نادرا آرڈیننس 2000 کی دفعہ 11</strong> اور POC رولز 2002 کے رول 3، 4، 5، 9 اور 10 کے تحت جاری کیا جاتا ہے۔</p>
+      <p>یہ اسکیم حکومتِ پاکستان نے اوورسیز پاکستانیز کنونشنز (1997 اور 1999) کی مسلسل درخواستوں کے نتیجے میں شروع کی۔ باقاعدہ آغاز <strong>2002</strong> میں ہوا۔</p>
+      <ul><li>تجدید: رول 15 کے مطابق</li><li>ڈپلیکیٹ اور تبدیلیاں: رول 16 کے مطابق</li></ul>
+    `
+  },
+
+  "poc-benefits": {
+    title: "Benefits of POC Holders", title_ur: "POC ہولڈرز کے فوائد", page: 22,
+    en: `
+      <ol type="a">
+        <li>May enter Pakistan <strong>without a visa</strong></li>
+        <li>Permission to stay in Pakistan till card validity</li>
+        <li>Exempt from reporting to law enforcing agencies as a Foreigner</li>
+        <li>May open bank accounts anywhere in Pakistan</li>
+        <li>May purchase / sell movable or immovable property</li>
+        <li>May use the card to prove identity where a National ID is required</li>
+        <li>May obtain employment</li>
+      </ol>
+      <h3>Validity</h3>
+      <ul><li><strong>7 years</strong> — Ex-Pakistanis / Parents / Grandparent based</li><li><strong>5 years</strong> — Foreign spouses and dependent children</li></ul>
+    `,
+    ur: `
+      <ol type="a">
+        <li>پاکستان میں <strong>بغیر ویزا</strong> داخل ہو سکتے ہیں</li>
+        <li>کارڈ کی میعاد تک پاکستان میں قیام کی اجازت</li>
+        <li>بطور غیر ملکی قانون نافذ کرنے والے اداروں میں رپورٹنگ سے استثنیٰ</li>
+        <li>پاکستان میں کہیں بھی بینک اکاؤنٹ کھول سکتے ہیں</li>
+        <li>منقولہ یا غیر منقولہ جائیداد خریدنے / بیچنے کے مجاز</li>
+        <li>جہاں قومی شناختی کارڈ درکار ہو وہاں شناخت ثابت کرنے کے لیے استعمال کر سکتے ہیں</li>
+        <li>ملازمت حاصل کر سکتے ہیں</li>
+      </ol>
+      <h3>کارڈ کی میعاد</h3>
+      <ul><li><strong>7 سال</strong> — سابق پاکستانی / والدین / دادا دادی کی بنیاد پر</li><li><strong>5 سال</strong> — غیر ملکی شریکِ حیات اور ان کے زیرِ کفالت بچے</li></ul>
+    `
+  },
+
+  "poc-fresh": {
+    title: "Fresh / New POC Requirements", title_ur: "نئے POC کے تقاضے", page: 23,
+    en: `
+      <h3>Category 1 — Ex-Pakistani</h3>
+      <p>Rule 4(1): Person who was a citizen of Pakistan at any time in life.</p>
+      <ol><li>Application by applicant</li><li>CNIC / NICOP / Pakistani Passport / MNIC / Domicile / Renunciation certificate</li><li>Valid Foreign passport</li></ol>
+      <h3>Category 2 — Parents / Grandparents based</h3>
+      <p>Rule 4(4): Applicant with Ex-Pakistani parents or grandparents.</p>
+      <ol><li>Application by applicant</li><li>Valid Foreign passport</li><li>Parents' / grandparents' CNIC / NICOP / POC / Passport OR Birth Certificate</li><li>Applicant's Birth Certificate with parents' info</li></ol>
+      <h3>Category 3 — Spouse of Pakistani</h3>
+      <ol><li>Valid Foreign passport, Birth certificate</li><li>Spouse CNIC / NICOP / POC</li><li>Marriage Certificate AND Undertaking "F"</li></ol>
+      <h3>Category 4 — Child of Foreign Spouse</h3>
+      <ol><li>Valid Foreign passport, Birth certificate with parents' names</li><li>Marriage certificate of parents</li><li>Undertaking "H" from Pakistani spouse</li></ol>
+      <div class="callout warn">Applications where parents acquired nationality of India / Israel / Bangladesh will <strong>not</strong> be entertained.</div>
+    `,
+    ur: `
+      <h3>زمرہ 1 — سابق پاکستانی</h3>
+      <p>رول 4(1): وہ شخص جو زندگی میں کسی بھی وقت پاکستان کا شہری رہا ہو۔</p>
+      <ol><li>درخواست دہندہ کی طرف سے درخواست</li><li>CNIC / NICOP / پاکستانی پاسپورٹ / MNIC / ڈومیسائل / ترکِ شہریت سرٹیفکیٹ</li><li>درست غیر ملکی پاسپورٹ</li></ol>
+      <h3>زمرہ 2 — والدین / دادا دادی کی بنیاد پر</h3>
+      <p>رول 4(4): وہ درخواست دہندہ جس کے والدین یا دادا دادی سابق پاکستانی ہوں۔</p>
+      <ol><li>درخواست دہندہ کی طرف سے درخواست</li><li>درست غیر ملکی پاسپورٹ</li><li>والدین / دادا دادی کا CNIC / NICOP / POC / پاسپورٹ یا پیدائش سرٹیفکیٹ</li><li>درخواست دہندہ کا پیدائش سرٹیفکیٹ مع والدین کی معلومات</li></ol>
+      <h3>زمرہ 3 — پاکستانی کا شریکِ حیات</h3>
+      <ol><li>درست غیر ملکی پاسپورٹ، پیدائش سرٹیفکیٹ</li><li>شریکِ حیات کا CNIC / NICOP / POC</li><li>شادی سرٹیفکیٹ اور حلف نامہ "F"</li></ol>
+      <h3>زمرہ 4 — غیر ملکی شریکِ حیات کا بچہ</h3>
+      <ol><li>درست غیر ملکی پاسپورٹ، پیدائش سرٹیفکیٹ مع والدین کے نام</li><li>والدین کا شادی سرٹیفکیٹ</li><li>پاکستانی شریکِ حیات سے حلف نامہ "H"</li></ol>
+      <div class="callout warn">جن درخواستوں میں والدین نے بھارت / اسرائیل / بنگلہ دیش کی شہریت حاصل کی ہو، وہ <strong>قابلِ قبول نہیں</strong>۔</div>
+    `
+  },
+
+  "poc-listb": {
+    title: "Restricted / List B Countries", title_ur: "محدود / لسٹ B ممالک", page: 25,
+    en: `
+      <table>
+        <tr><th>Restricted for POC</th><th>List B (MOI NOC required)</th></tr>
+        <tr><td>India</td><td>Serbia</td></tr>
+        <tr><td>Israel</td><td>Palestine (PLO)</td></tr>
+        <tr><td>Taiwan</td><td>Somalia</td></tr>
+        <tr><td>Armenia</td><td>Sudan, South Sudan</td></tr>
+        <tr><td>&nbsp;</td><td>Afghanistan, Bangladesh, Bhutan, Nigeria</td></tr>
+      </table>
+    `,
+    ur: `
+      <table>
+        <tr><th>POC کے لیے محدود</th><th>لسٹ B (MOI NOC درکار)</th></tr>
+        <tr><td>بھارت</td><td>سربیا</td></tr>
+        <tr><td>اسرائیل</td><td>فلسطین (PLO)</td></tr>
+        <tr><td>تائیوان</td><td>صومالیہ</td></tr>
+        <tr><td>آرمینیا</td><td>سوڈان، جنوبی سوڈان</td></tr>
+        <tr><td>&nbsp;</td><td>افغانستان، بنگلہ دیش، بھوٹان، نائجیریا</td></tr>
+      </table>
+    `
+  },
+
+  "poc-misc": {
+    title: "POC – Office Mistake / Reprint / Renewal / Change", title_ur: "POC – دفتری غلطی / دوبارہ پرنٹ / تجدید / تبدیلی", page: 26,
+    en: `
+      <h3>Re-Print / Renewal</h3>
+      <ol><li>Application by applicant and POC</li><li>Valid Foreign Passport</li><li>Undertaking "F" (spouse-based only)</li></ol>
+      <h3>Name / DOB / Nationality / Gender Change</h3>
+      <ol><li>Application by applicant and original POC</li><li>Valid Foreign Passport with modified information</li></ol>
+      <h3>Address Change</h3>
+      <ol><li>Proof of new address (property document / tenancy agreement)</li></ol>
+    `,
+    ur: `
+      <h3>دوبارہ پرنٹ / تجدید</h3>
+      <ol><li>درخواست دہندہ اور POC کی طرف سے درخواست</li><li>درست غیر ملکی پاسپورٹ</li><li>حلف نامہ "F" (صرف شریکِ حیات کی بنیاد پر)</li></ol>
+      <h3>نام / تاریخ پیدائش / قومیت / جنس میں تبدیلی</h3>
+      <ol><li>درخواست دہندہ اور اصل POC کی طرف سے درخواست</li><li>ترمیم شدہ معلومات کے ساتھ درست غیر ملکی پاسپورٹ</li></ol>
+      <h3>پتے میں تبدیلی</h3>
+      <ol><li>نئے پتے کا ثبوت (جائیداد کی دستاویز / کرایہ نامہ)</li></ol>
+    `
+  },
+
+  "poc-receiving": {
+    title: "Receiving of POC", title_ur: "POC وصول کرنا", page: 27,
+    en: `
+      <p>POC can be received by applicant, blood relative / spouse, or authorized person with authority letter, or via home delivery.</p>
+      <div class="callout">In case of divorce of foreign spouse, POC will be cancelled.</div>
+    `,
+    ur: `
+      <p>POC درخواست دہندہ، خونی رشتہ دار / شریکِ حیات، یا اجازت نامے کے ساتھ مجاز شخص، یا گھر پر ڈیلیوری کے ذریعے وصول کی جا سکتی ہے۔</p>
+      <div class="callout">غیر ملکی شریکِ حیات کی طلاق کی صورت میں POC منسوخ کر دیا جائے گا۔</div>
+    `
+  },
+
+  "cancel-death": {
+    title: "Cancellation – Due to Death", title_ur: "منسوخی – وفات کی وجہ سے", page: 30,
+    en: `
+      <p>Card is cancelled under Section 17 of NADRA Ordinance 2000. Certificate issued as per Schedule V of Rule 17(1).</p>
+      <ol><li>Application by any Blood relative / Spouse</li><li>Original CNIC / NICOP / POC / CRC of deceased</li><li>Computerized Death Certificate (verified) OR Foreign Death Certificate</li></ol>
+    `,
+    ur: `
+      <p>کارڈ نادرا آرڈیننس 2000 کی دفعہ 17 کے تحت منسوخ کیا جاتا ہے۔ سرٹیفکیٹ رول 17(1) کے شیڈول V کے مطابق جاری ہوتا ہے۔</p>
+      <ol><li>کسی بھی خونی رشتہ دار / شریکِ حیات کی طرف سے درخواست</li><li>مرحوم کا اصل CNIC / NICOP / POC / CRC</li><li>کمپیوٹرائزڈ وفات سرٹیفکیٹ (تصدیق شدہ) یا غیر ملکی وفات سرٹیفکیٹ</li></ol>
+    `
+  },
+
+  "cancel-surrender": {
+    title: "Cancellation – Surrender of Nationality", title_ur: "منسوخی – ترکِ شہریت", page: 30,
+    en: `
+      <h3>CNIC / NICOP / CRC Cancellation</h3>
+      <ol><li>Application by applicant</li><li>Original CNIC / NICOP / CRC</li><li>Single-national country's Passport OR Renunciation Certificate OR Undertaking "D"</li></ol>
+      <h3>POC Cancellation (Resumption of Pakistani Citizenship)</h3>
+      <ol><li>Original POC</li><li>Resumption letter from IMPASS OR Undertaking "I"</li></ol>
+      <h3>Due to Divorce of Foreign Spouse</h3>
+      <ol><li>Divorce paper(s)</li></ol>
+    `,
+    ur: `
+      <h3>CNIC / NICOP / CRC کی منسوخی</h3>
+      <ol><li>درخواست دہندہ کی طرف سے درخواست</li><li>اصل CNIC / NICOP / CRC</li><li>واحد قومیت والے ملک کا پاسپورٹ یا ترکِ شہریت سرٹیفکیٹ یا حلف نامہ "D"</li></ol>
+      <h3>POC کی منسوخی (پاکستانی شہریت کی بحالی)</h3>
+      <ol><li>اصل POC</li><li>IMPASS سے بحالی کا خط یا حلف نامہ "I"</li></ol>
+      <h3>غیر ملکی شریکِ حیات کی طلاق کی وجہ سے</h3>
+      <ol><li>طلاق کی دستاویزات</li></ol>
+    `
+  },
+
+  affidavits: {
+    title: "Affidavit / Undertaking Formats", title_ur: "حلف نامے / اقرار نامے کے فارمیٹس", page: 31,
+    en: `
+      <table>
+        <tr><th>Code</th><th>Purpose</th></tr>
+        <tr><td>A</td><td>NICOP / SNICOP without Passport</td></tr>
+        <tr><td>B</td><td>Confirmation of Citizenship</td></tr>
+        <tr><td>C1</td><td>Name Change (below 18)</td></tr>
+        <tr><td>C2</td><td>Name Change (above 18)</td></tr>
+        <tr><td>C3</td><td>POC – Different names in documents</td></tr>
+        <tr><td>D</td><td>Cancellation of CNIC / NICOP for POC</td></tr>
+        <tr><td>E</td><td>Relation with FPO's family member</td></tr>
+        <tr><td>F</td><td>Pakistani spouse of foreign spouse</td></tr>
+        <tr><td>G</td><td>Foreign spouse when Pakistani spouse deceased</td></tr>
+        <tr><td>H</td><td>FPO by step parents</td></tr>
+        <tr><td>I</td><td>Cancellation of POC (dual nationals)</td></tr>
+        <tr><td>J</td><td>Decline of POC Application</td></tr>
+      </table>
+    `,
+    ur: `
+      <table>
+        <tr><th>کوڈ</th><th>مقصد</th></tr>
+        <tr><td>A</td><td>بغیر پاسپورٹ NICOP / SNICOP</td></tr>
+        <tr><td>B</td><td>شہریت کی تصدیق</td></tr>
+        <tr><td>C1</td><td>نام کی تبدیلی (18 سے کم)</td></tr>
+        <tr><td>C2</td><td>نام کی تبدیلی (18 سے زائد)</td></tr>
+        <tr><td>C3</td><td>POC – دستاویزات میں مختلف نام</td></tr>
+        <tr><td>D</td><td>POC کے لیے CNIC / NICOP کی منسوخی</td></tr>
+        <tr><td>E</td><td>FPO کے خاندانی رکن سے رشتہ</td></tr>
+        <tr><td>F</td><td>غیر ملکی شریکِ حیات کا پاکستانی شریکِ حیات</td></tr>
+        <tr><td>G</td><td>پاکستانی شریکِ حیات کی وفات پر غیر ملکی شریکِ حیات</td></tr>
+        <tr><td>H</td><td>سوتیلے والدین کی طرف سے FPO</td></tr>
+        <tr><td>I</td><td>POC کی منسوخی (دوہری قومیت)</td></tr>
+        <tr><td>J</td><td>POC درخواست کی مستردگی</td></tr>
+      </table>
+    `
+  },
+
+  "dual-national": {
+    title: "List of Dual National Countries", title_ur: "دوہری قومیت والے ممالک کی فہرست", page: 44,
+    en: `
+      <table>
+        <tr><th>Sr #</th><th>Country</th><th>Effective Date</th></tr>
+        <tr><td>1</td><td>United Kingdom</td><td>Citizenship Act 1972</td></tr>
+        <tr><td>2</td><td>Canada</td><td>17 May 1973</td></tr>
+        <tr><td>3</td><td>Belgium</td><td>1 Dec 1983</td></tr>
+        <tr><td>4</td><td>France</td><td>1 Dec 1983</td></tr>
+        <tr><td>5</td><td>Iceland</td><td>1 Dec 1983</td></tr>
+        <tr><td>6</td><td>Italy</td><td>1 Dec 1983</td></tr>
+        <tr><td>7</td><td>New Zealand</td><td>1 Dec 1983</td></tr>
+        <tr><td>8</td><td>Switzerland</td><td>15 Feb 1988</td></tr>
+        <tr><td>9</td><td>Jordan</td><td>27 Feb 1988</td></tr>
+        <tr><td>10</td><td>Syria</td><td>13 Mar 1989</td></tr>
+        <tr><td>11</td><td>Australia</td><td>15 Sep 1990</td></tr>
+        <tr><td>12</td><td>Egypt</td><td>17 Sep 1990</td></tr>
+        <tr><td>13</td><td>Netherlands</td><td>18 Feb 1993</td></tr>
+        <tr><td>14</td><td>Sweden</td><td>29 Aug 2002</td></tr>
+        <tr><td>15</td><td>USA</td><td>29 Aug 2002</td></tr>
+        <tr><td>16</td><td>Ireland</td><td>9 Apr 2005</td></tr>
+        <tr><td>17</td><td>Bahrain</td><td>1 Jun 2015</td></tr>
+        <tr><td>18</td><td>Finland</td><td>23 Sep 2015</td></tr>
+        <tr><td>19</td><td>Denmark</td><td>31 Oct 2017</td></tr>
+        <tr><td>20</td><td>Germany</td><td>3 Dec 2019, 4 Sep 2025</td></tr>
+        <tr><td>21</td><td>Norway</td><td>1 Jan 2020</td></tr>
+        <tr><td>22</td><td>Luxemburg</td><td>29 Dec 2020</td></tr>
+      </table>
+    `,
+    ur: `
+      <table>
+        <tr><th>نمبر</th><th>ملک</th><th>تاریخِ نفاذ</th></tr>
+        <tr><td>1</td><td>برطانیہ</td><td>شہریت ایکٹ 1972</td></tr>
+        <tr><td>2</td><td>کینیڈا</td><td>17 مئی 1973</td></tr>
+        <tr><td>3</td><td>بیلجیم</td><td>1 دسمبر 1983</td></tr>
+        <tr><td>4</td><td>فرانس</td><td>1 دسمبر 1983</td></tr>
+        <tr><td>5</td><td>آئس لینڈ</td><td>1 دسمبر 1983</td></tr>
+        <tr><td>6</td><td>اٹلی</td><td>1 دسمبر 1983</td></tr>
+        <tr><td>7</td><td>نیوزی لینڈ</td><td>1 دسمبر 1983</td></tr>
+        <tr><td>8</td><td>سوئٹزرلینڈ</td><td>15 فروری 1988</td></tr>
+        <tr><td>9</td><td>اردن</td><td>27 فروری 1988</td></tr>
+        <tr><td>10</td><td>شام</td><td>13 مارچ 1989</td></tr>
+        <tr><td>11</td><td>آسٹریلیا</td><td>15 ستمبر 1990</td></tr>
+        <tr><td>12</td><td>مصر</td><td>17 ستمبر 1990</td></tr>
+        <tr><td>13</td><td>نیدرلینڈز</td><td>18 فروری 1993</td></tr>
+        <tr><td>14</td><td>سویڈن</td><td>29 اگست 2002</td></tr>
+        <tr><td>15</td><td>امریکہ</td><td>29 اگست 2002</td></tr>
+        <tr><td>16</td><td>آئرلینڈ</td><td>9 اپریل 2005</td></tr>
+        <tr><td>17</td><td>بحرین</td><td>1 جون 2015</td></tr>
+        <tr><td>18</td><td>فن لینڈ</td><td>23 ستمبر 2015</td></tr>
+        <tr><td>19</td><td>ڈنمارک</td><td>31 اکتوبر 2017</td></tr>
+        <tr><td>20</td><td>جرمنی</td><td>3 دسمبر 2019، 4 ستمبر 2025</td></tr>
+        <tr><td>21</td><td>ناروے</td><td>1 جنوری 2020</td></tr>
+        <tr><td>22</td><td>لکسمبرگ</td><td>29 دسمبر 2020</td></tr>
+      </table>
+    `
+  }
+};
+
+(function () {
+  const contentArea = document.getElementById('contentArea');
+  const tocLinks    = document.querySelectorAll('.toc a[data-id]');
+  const sections    = document.querySelectorAll('.toc-section');
+  const searchInput = document.getElementById('searchInput');
+  const searchInfo  = document.getElementById('searchInfo');
+  const noResults   = document.getElementById('noResults');
+  const toggleBtns  = document.querySelectorAll('#langToggle button');
+
+  let currentId = 'introduction';
+  let currentMode = 'both';
+
+  function showSection(id) {
+    currentId = id;
+    const d = policyData[id];
+    if (!d) {
+      contentArea.innerHTML = `<h2>Content not found</h2><p>Section "<strong>${id}</strong>" has no entry.</p>`;
+      return;
+    }
+
+    const urduMissing = !d.ur || d.ur.trim() === '';
+    const englishMissing = !d.en || d.en.trim() === '';
+
+    let pairClass = 'lang-pair';
+    if (currentMode === 'en' || currentMode === 'ur') pairClass += ' single';
+
+    let columns = '';
+
+    if (currentMode !== 'ur') {
+      columns += `
+        <div class="lang-col en">
+          <span class="lang-tag">English</span>
+          ${englishMissing ? '<div class="callout warn">English content not yet added.</div>' : d.en}
+        </div>`;
+    }
+
+    if (currentMode !== 'en') {
+      columns += `
+        <div class="lang-col ur">
+          <span class="lang-tag">اردو</span>
+          ${urduMissing ? `<div class="callout warn">یہاں اردو متن درج کریں — ${d.title}</div>` : d.ur}
+        </div>`;
+    }
+
+    contentArea.innerHTML = `
+      <div class="crumb">Registration Policy RP-6.0.2 &nbsp;›&nbsp; Page ${d.page || ''}</div>
+      <h2>
+        ${d.title}
+        ${d.title_ur ? `<span class="ur-title">${d.title_ur}</span>` : ''}
+      </h2>
+      <div class="${pairClass}">${columns}</div>
+    `;
+
+    contentArea.scrollTop = 0;
+    tocLinks.forEach(a => a.classList.toggle('active', a.dataset.id === id));
+    try { localStorage.setItem('nadra_last_section', id); } catch (e) {}
+  }
+
+  toggleBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentMode = btn.dataset.mode;
+      toggleBtns.forEach(b => b.classList.toggle('active', b === btn));
+      showSection(currentId);
+    });
+  });
+
+  tocLinks.forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      showSection(a.dataset.id);
+      if (window.innerWidth <= 1000) {
+        contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  function stripTags(s) { return s.replace(/<[^>]+>/g, ' '); }
+
+  function filterTOC() {
+    const q = searchInput.value.trim().toLowerCase();
+    let visible = 0;
+
+    if (!q) {
+      tocLinks.forEach(a => a.classList.remove('hidden'));
+      sections.forEach(s => s.classList.remove('hidden'));
+      noResults.classList.remove('show');
+      searchInfo.textContent = '';
+      return;
+    }
+
+    tocLinks.forEach(a => {
+      const d = policyData[a.dataset.id] || {};
+      const hay = (
+        a.textContent + ' ' + (d.title || '') + ' ' + (d.title_ur || '') + ' ' +
+        stripTags(d.en || '') + ' ' + stripTags(d.ur || '')
+      ).toLowerCase();
+      const match = hay.includes(q);
+      a.classList.toggle('hidden', !match);
+      if (match) visible++;
+    });
+
+    sections.forEach((sec, i) => {
+      const next = sections[i + 1];
+      let el = sec.nextElementSibling, has = false;
+      while (el && el !== next) {
+        if (el.tagName === 'A' && !el.classList.contains('hidden')) { has = true; break; }
+        el = el.nextElementSibling;
+      }
+      sec.classList.toggle('hidden', !has);
+    });
+
+    noResults.classList.toggle('show', visible === 0);
+    searchInfo.textContent = visible === 0
+      ? 'No results / کوئی نتیجہ نہیں'
+      : visible + ' section' + (visible !== 1 ? 's' : '') + ' / ' + visible + ' سیکشن';
+  }
+
+  searchInput.addEventListener('input', filterTOC);
+  searchInput.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { searchInput.value = ''; filterTOC(); searchInput.blur(); }
+  });
+
+  let start = 'introduction';
+  try { start = localStorage.getItem('nadra_last_section') || 'introduction'; } catch(e) {}
+  if (!policyData[start]) start = 'introduction';
+  showSection(start);
+})();
+
+/* ---- PWA SERVICE WORKER ---- */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(err => console.log('SW error:', err));
+  });
+}
+
+/* ---- INSTALL BUTTON ---- */
+let deferredPrompt;
+const installBtn = document.getElementById('installBtn');
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBtn.style.display = 'block';
+});
+installBtn.addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  await deferredPrompt.userChoice;
+  installBtn.style.display = 'none';
+  deferredPrompt = null;
+});
+window.addEventListener('appinstalled', () => { installBtn.style.display = 'none'; });
+</script>
+
+</body>
+</html>
